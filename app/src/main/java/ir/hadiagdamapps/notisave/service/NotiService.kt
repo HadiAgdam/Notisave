@@ -32,7 +32,7 @@ class NotiService : Service() {
             throw Exception("Post notification permission not granted")
         }
 
-        NotificationManagerCompat.from(applicationContext).notify(0, notification)
+        startForeground(1, notification)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

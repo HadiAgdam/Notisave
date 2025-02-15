@@ -13,17 +13,18 @@ class NotiListener : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
         val file = File(baseContext.cacheDir, "file.txt")
-
         if (!file.exists()) file.createNewFile()
         var content = file.readText()
 
+        content += "\n----------------------------------------------------------------------------\n"
         content += sbn?.notification?.extras?.getString(Notification.EXTRA_TEXT, "NULL")
+        content += "\n"
+        content += sbn?.notification?.extras?.getString(Notification.EXTRA_TITLE, "NULL")
         content += "\n"
 
         file.writeText(content)
 
-        Toast.makeText(baseContext, "got notification", Toast.LENGTH_SHORT).show()
-        Log.e("notification", "got new")
+        Log.e("notification", "\n${file.readText()}\n")
     }
 
 }
