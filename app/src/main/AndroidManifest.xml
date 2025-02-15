@@ -31,7 +31,8 @@
             android:enabled="true"
             android:exported="true"
             android:permission="ForeGroundServicePermission"
-            android:foregroundServiceType="specialUse" />
+            android:foregroundServiceType="specialUse"
+            tools:ignore="ForegroundServicePermission" />
 
         <activity
             android:name=".MainActivity"

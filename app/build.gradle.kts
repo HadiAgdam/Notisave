@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
+    kotlin("plugin.serialization") version "1.9.10"
 }
 
 android {
@@ -40,6 +42,19 @@ android {
 }
 
 dependencies {
+
+    // room
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
+    implementation("androidx.room:room-ktx:2.6.1")
+
+    // load image from drawable
+    implementation("com.google.accompanist:accompanist-drawablepainter:0.36.0")
+
+    // navigation
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
