@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -36,29 +37,16 @@ fun GroupItem(
 
     Row(
         Modifier
-            .height(86.dp)
+            .height(80.dp)
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(2.dp)
             .background(Color.surface)
             .padding(horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     )
     {
 
-        Box(
-            Modifier
-                .size(48.dp)
-                .clip(RoundedCornerShape(24.dp))
-                .background(androidx.compose.ui.graphics.Color.White)
-        ) {
-            group.icon?.let {
-                Image(
-                    painter = rememberDrawablePainter(it),
-                    contentDescription = "App Icon",
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
-        }
+
 
 
         Text(
@@ -100,7 +88,6 @@ private fun GroupItemPreview() {
             GroupItem(
                 NotiGroup(
                     "Test Title",
-                    null,
                     0
                 )
             )

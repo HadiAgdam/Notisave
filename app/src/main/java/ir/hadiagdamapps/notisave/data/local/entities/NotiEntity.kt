@@ -14,7 +14,5 @@ data class NotiEntity(
     val bigText: String?,
     val postTime: Long,
     val isOngoing: Boolean,
-    val picture: String, // like youtube thumbnail
-    val largeIcon: String?, // profile picture
     val extraMessages: String? // like telegram notification chat
 )

@@ -23,11 +23,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContent {
-            TestScreen(this)
-        }
-
-        return
 
         val intent = Intent(this, NotiService::class.java)
         startService(intent)
