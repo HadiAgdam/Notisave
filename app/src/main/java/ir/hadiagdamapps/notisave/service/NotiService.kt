@@ -18,7 +18,7 @@ class NotiService : Service() {
             applicationContext,
             NotiChannel.SERVICE_NOTIFICATION_CHANNEL.id
         )
-            .setContentTitle("Listening")
+            .setContentTitle("Listening for notifications...")
             .setSmallIcon(R.drawable.ic_launcher_background)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setOngoing(true)

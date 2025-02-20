@@ -19,7 +19,7 @@ class AppNotificationsScreenViewModel(
 
     fun onItemClick(notiEntity: NotiEntity) {
         viewModelScope.launch {
-            repository.updateToSeen(notiEntity.id)
+            repository.updateToSeen(notiEntity.notificationId)
         }
     }
 

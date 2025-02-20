@@ -2,11 +2,12 @@ package ir.hadiagdamapps.notisave.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
 
 @Entity(tableName = "notifications")
 data class NotiEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val notificationId: Int = 0,
     val packageName: String,
     val title: String?,
     val text: String?,

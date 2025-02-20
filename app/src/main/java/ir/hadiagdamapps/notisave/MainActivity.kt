@@ -16,9 +16,11 @@ import ir.hadiagdamapps.notisave.data.local.database.AppDatabase
 import ir.hadiagdamapps.notisave.data.repository.NotiRepository
 import ir.hadiagdamapps.notisave.navigation.route.AppNotificationRoute
 import ir.hadiagdamapps.notisave.navigation.route.GroupScreenRoute
+import ir.hadiagdamapps.notisave.navigation.route.NotificationRoute
 import ir.hadiagdamapps.notisave.service.NotiService
 import ir.hadiagdamapps.notisave.ui.screen.AppNotificationsScreen
 import ir.hadiagdamapps.notisave.ui.screen.GroupsScreen
+import ir.hadiagdamapps.notisave.ui.screen.NotificationScreen
 import ir.hadiagdamapps.notisave.ui.theme.ApplicationTheme
 import ir.hadiagdamapps.notisave.viewmodels.AppNotificationsScreenViewModel
 import ir.hadiagdamapps.notisave.viewmodels.GroupScreenViewModel
@@ -80,6 +82,18 @@ class MainActivity : ComponentActivity() {
                         ) }
 
                         AppNotificationsScreen(navController, viewmodel)
+                    }
+
+
+                    composable<NotificationRoute> {
+
+                        val args = it.toRoute<NotificationRoute>()
+
+                        val notification = repo.getNotificationById(args.notificationId).collectAsState(null)
+
+                        notification.value?.let { noti ->
+                            NotificationScreen(noti)
+                        }
                     }
 
                 }

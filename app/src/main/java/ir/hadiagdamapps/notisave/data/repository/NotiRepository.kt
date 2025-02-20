@@ -22,4 +22,8 @@ class NotiRepository(private val dao: NotiDao) {
     suspend fun updateToSeen(id: Int) {
         dao.updateToSeen(id)
     }
+
+    fun getNotificationById(notificationId: Int): Flow<NotiEntity?> {
+        return dao.getItemById(notificationId)
+    }
 }

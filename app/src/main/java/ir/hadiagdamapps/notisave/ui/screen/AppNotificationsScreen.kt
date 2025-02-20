@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import ir.hadiagdamapps.notisave.navigation.route.NotificationRoute
 import ir.hadiagdamapps.notisave.ui.component.NotificationItem
 import ir.hadiagdamapps.notisave.ui.theme.Color
 import ir.hadiagdamapps.notisave.viewmodels.AppNotificationsScreenViewModel
@@ -53,7 +54,7 @@ fun AppNotificationsScreen(
             items(notifications.value) {
                 NotificationItem(
                     modifier = Modifier.clickable {
-                        // TODO navigate
+                        navController.navigate(NotificationRoute(it.notificationId) )
                         viewModel.onItemClick(it)
                     },
                     title = it.title ?: "NULL",
