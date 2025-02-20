@@ -15,9 +15,9 @@ NotiSave is an Android app for practicing NotificationListenerService to fetch n
 
 NotiSave consists of three main screens:  
 
-1. **App Screen** – Displays a list of apps that have received notifications, grouped by package name.  
-2. **Notifications Screen** – Shows all notifications related to a selected app.  
-3. **Notification Details Screen** – Displays the full details of a selected notification.  
+1. **Groups Screen** – Displays a list of apps that have received notifications, grouped by package name.  
+2. **App Notifications Screen** – Shows all notifications related to a selected app.  
+3. **Notification Screen** – Displays the full details of a selected notification.  
 
 ## How It Works  
 
