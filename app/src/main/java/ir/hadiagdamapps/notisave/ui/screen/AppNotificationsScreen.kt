@@ -51,7 +51,7 @@ fun AppNotificationsScreen(
 
         LazyColumn {
 
-            items(notifications.value) {
+            items(notifications.value.sortedByDescending { it.postTime }) {
                 NotificationItem(
                     modifier = Modifier.clickable {
                         navController.navigate(NotificationRoute(it.notificationId) )
