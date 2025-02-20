@@ -20,7 +20,7 @@ class GroupScreenViewModel(
         list.groupBy { it.packageName }.map { (packageName, grouped) ->
             NotiGroup(
                 title = getAppTitle(packageName),
-                count = grouped.size,
+                count = grouped.filter { !it.seen }.size,
                 packageName = packageName
             )
         }
