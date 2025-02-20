@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.os.IBinder
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import ir.hadiagdamapps.notisave.R
 import ir.hadiagdamapps.notisave.notification.NotiChannel
 
@@ -19,7 +18,7 @@ class NotiService : Service() {
             NotiChannel.SERVICE_NOTIFICATION_CHANNEL.id
         )
             .setContentTitle("Listening for notifications...")
-            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setSmallIcon(R.drawable.app_logo)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setOngoing(true)
             .build()
