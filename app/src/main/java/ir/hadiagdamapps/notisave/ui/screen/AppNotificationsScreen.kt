@@ -1,5 +1,6 @@
 package ir.hadiagdamapps.notisave.ui.screen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -17,37 +18,51 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ir.hadiagdamapps.notisave.navigation.route.AppNotificationRoute
-import ir.hadiagdamapps.notisave.ui.component.GroupItem
+import ir.hadiagdamapps.notisave.ui.component.NotificationItem
 import ir.hadiagdamapps.notisave.ui.theme.Color
-import ir.hadiagdamapps.notisave.viewmodels.GroupScreenViewModel
+import ir.hadiagdamapps.notisave.viewmodels.AppNotificationsScreenViewModel
 
 @Composable
-fun GroupsScreen(
+fun AppNotificationsScreen(
     navController: NavController,
-    viewmodel: GroupScreenViewModel
+    viewModel: AppNotificationsScreenViewModel
 ) {
-    val groups = viewmodel.groupedNotifications.collectAsState(listOf())
+
+    val notifications = viewModel.notifications.collectAsState(listOf()).also {
+        Log.e("found count", it.value.size.toString())
+        it.value.forEachIndexed { index, noti ->
+            Log.e("items collected $index", noti.toString())
+        }
+    }
 
     Column(
-        modifier = Modifier
+        Modifier
             .fillMaxSize()
             .background(Color.background)
             .padding(top = 24.dp)
     ) {
-
         Text(
-            "Applications", modifier = Modifier.fillMaxWidth(),
+            "Notifications", Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold
         )
 
         LazyColumn {
-            items(groups.value) {
-                GroupItem(it, modifier = Modifier.clickable { navController.navigate(AppNotificationRoute(it.packageName)) })
-            }
-        }
 
+            items(notifications.value) {
+                NotificationItem(
+                    modifier = Modifier.clickable {
+                        // TODO navigate
+                        viewModel.onItemClick(it)
+                    },
+                    title = it.title ?: "NULL",
+                    text = it.text ?: "NULL",
+                    time = it.postTime,
+                    seen = it.seen
+                )
+            }
+
+        }
     }
 }

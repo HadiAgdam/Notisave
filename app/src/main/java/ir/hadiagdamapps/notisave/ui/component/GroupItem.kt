@@ -32,11 +32,12 @@ import ir.hadiagdamapps.notisave.ui.theme.Color
 
 @Composable
 fun GroupItem(
-    group: NotiGroup
+    group: NotiGroup,
+    modifier: Modifier = Modifier
 ) {
 
     Row(
-        Modifier
+        modifier
             .height(80.dp)
             .fillMaxWidth()
             .padding(2.dp)
@@ -67,7 +68,7 @@ fun GroupItem(
             contentAlignment = Alignment.Center
             ) {
             Text(
-                text = "11",
+                text = group.count.toString(),
                 textAlign = TextAlign.Center,
                 color = androidx.compose.ui.graphics.Color.Black,
                 style = MaterialTheme.typography.labelSmall,
@@ -88,7 +89,8 @@ private fun GroupItemPreview() {
             GroupItem(
                 NotiGroup(
                     "Test Title",
-                    0
+                    0,
+                    "test package"
                 )
             )
         }

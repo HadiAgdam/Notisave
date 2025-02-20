@@ -16,11 +16,12 @@ class GroupScreenViewModel(
 ) : AndroidViewModel(application) {
 
 
-    val groupedNotifications: Flow<List<NotiGroup>> = repository.allItems.map { list ->
+    val groupedNotifications: Flow<List<NotiGroup>> = repository.getItems().map { list ->
         list.groupBy { it.packageName }.map { (packageName, grouped) ->
             NotiGroup(
                 title = getAppTitle(packageName),
-                count = grouped.size
+                count = grouped.size,
+                packageName = packageName
             )
         }
     }

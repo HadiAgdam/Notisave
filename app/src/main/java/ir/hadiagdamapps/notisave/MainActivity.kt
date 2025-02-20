@@ -3,20 +3,26 @@ package ir.hadiagdamapps.notisave
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import ir.hadiagdamapps.notisave.data.local.database.AppDatabase
 import ir.hadiagdamapps.notisave.data.repository.NotiRepository
+import ir.hadiagdamapps.notisave.navigation.route.AppNotificationRoute
 import ir.hadiagdamapps.notisave.navigation.route.GroupScreenRoute
 import ir.hadiagdamapps.notisave.service.NotiService
-import ir.hadiagdamapps.notisave.test.TestScreen
+import ir.hadiagdamapps.notisave.ui.screen.AppNotificationsScreen
 import ir.hadiagdamapps.notisave.ui.screen.GroupsScreen
 import ir.hadiagdamapps.notisave.ui.theme.ApplicationTheme
+import ir.hadiagdamapps.notisave.viewmodels.AppNotificationsScreenViewModel
 import ir.hadiagdamapps.notisave.viewmodels.GroupScreenViewModel
+import ir.hadiagdamapps.notisave.viewmodels.factory.AppNotificationsScreenViewModelFactory
 import ir.hadiagdamapps.notisave.viewmodels.factory.GroupScreenViewModelFactory
 
 class MainActivity : ComponentActivity() {
@@ -37,7 +43,15 @@ class MainActivity : ComponentActivity() {
         val dao = AppDatabase.getDatabase(this).notiDao()
         val repo = NotiRepository(dao)
 
+
         setContent {
+            val items = repo.getItems().collectAsState(listOf())
+            items.value.forEach {
+                Log.e("packageName", it.packageName)
+                Log.e("text", "\'${it.text.toString()}'")
+                Log.e("\n", "\n")
+            }
+
             ApplicationTheme {
 
                 val navController = rememberNavController()
@@ -47,12 +61,25 @@ class MainActivity : ComponentActivity() {
                     composable<GroupScreenRoute> {
                         val viewmodel by viewModels<GroupScreenViewModel> {
                             GroupScreenViewModelFactory(
-                                application,
-                                repo
+                                application= application,
+                                repo = repo
                             )
                         }
 
-                        GroupsScreen(viewmodel)
+                        GroupsScreen(navController, viewmodel)
+                    }
+
+                    composable<AppNotificationRoute> {
+
+                        val args = it.toRoute<AppNotificationRoute>()
+
+                        val viewmodel by viewModels<AppNotificationsScreenViewModel> { AppNotificationsScreenViewModelFactory(
+                            application = application,
+                            repository = repo,
+                            packageName = args.packageName
+                        ) }
+
+                        AppNotificationsScreen(navController, viewmodel)
                     }
 
                 }

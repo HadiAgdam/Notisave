@@ -19,4 +19,11 @@ interface NotiDao {
     @Query("SELECT * from notifications")
     fun getItems(): Flow<List<NotiEntity>>
 
+
+    @Query("SELECT * from notifications where packageName = :packageName")
+    fun getItemsByPackageName(packageName: String): Flow<List<NotiEntity>>
+
+
+    @Query("UPDATE notifications SET seen = 1 where id = :id")
+    suspend fun updateToSeen(id: Int)
 }
