@@ -1,6 +1,7 @@
 package ir.hadiagdamapps.notisave.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import ir.hadiagdamapps.notisave.data.local.entities.NotiEntity
@@ -15,6 +16,10 @@ class AppNotificationsScreenViewModel(
 ) : AndroidViewModel(application) {
 
     val notifications: Flow<List<NotiEntity>> = repository.getItemsByPackageName(packageName)
+
+    init {
+        Log.e("pppp", packageName)
+    }
 
 
     fun onItemClick(notiEntity: NotiEntity) {

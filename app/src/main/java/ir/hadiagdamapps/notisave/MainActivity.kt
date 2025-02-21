@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -63,7 +64,7 @@ class MainActivity : ComponentActivity() {
                     composable<GroupScreenRoute> {
                         val viewmodel by viewModels<GroupScreenViewModel> {
                             GroupScreenViewModelFactory(
-                                application= application,
+                                application = application,
                                 repo = repo
                             )
                         }
@@ -75,11 +76,14 @@ class MainActivity : ComponentActivity() {
 
                         val args = it.toRoute<AppNotificationRoute>()
 
-                        val viewmodel by viewModels<AppNotificationsScreenViewModel> { AppNotificationsScreenViewModelFactory(
-                            application = application,
-                            repository = repo,
-                            packageName = args.packageName
-                        ) }
+                        val viewmodel: AppNotificationsScreenViewModel = viewModel(
+                            key = args.packageName,
+                            factory = AppNotificationsScreenViewModelFactory(
+                                application = application,
+                                repository = repo,
+                                packageName = args.packageName
+                            )
+                        )
 
                         AppNotificationsScreen(navController, viewmodel)
                     }
@@ -89,7 +93,8 @@ class MainActivity : ComponentActivity() {
 
                         val args = it.toRoute<NotificationRoute>()
 
-                        val notification = repo.getNotificationById(args.notificationId).collectAsState(null)
+                        val notification =
+                            repo.getNotificationById(args.notificationId).collectAsState(null)
 
                         notification.value?.let { noti ->
                             NotificationScreen(noti)
